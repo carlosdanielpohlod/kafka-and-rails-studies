@@ -7,4 +7,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  namespace :api do
+    namespace :v1 do
+      resource :kafka, only: [], controller: 'kafka' do
+        post :hello_world, action: :hello_world
+      end
+    end
+  end
 end

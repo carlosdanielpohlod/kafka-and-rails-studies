@@ -9,7 +9,16 @@ services:
       - "3000:3000"
     volumes:
       - .:/app
+      - bundle_path:/bundle
       - gem_cache:/usr/local/bundle/gems
+    stdin_open: true
+    tty: true
+    command: bundle exec rails server -b 0.0.0.0
+    networks:
+      default:
+      internal:
+        aliases:
+          - backend-server
 
     environment:
       RAILS_ENV: development
@@ -49,7 +58,10 @@ services:
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
     depends_on:
       - zoo-keeper-studies
-
 volumes:
   app:
+  bundle_path:
   gem_cache:
+
+networks:
+  internal:
